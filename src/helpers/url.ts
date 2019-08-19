@@ -1,11 +1,12 @@
-import { isDate, isObject } from './util'
+import { isDate, isPlainObject } from './util'
 
-function encode(val: stirng): string {
+function encode(val: string): string {
   return encodeURIComponent(val)
     .replace(/%40/g, '@')
     .replace(/%3A/gi, ':')
     .replace(/%24/g, '$')
     .replace(/%2C/gi, ',')
+    .replace(/%2B/gi, '+')
     .replace(/%20/g, '+')
     .replace(/%5B/g, '[')
     .replace(/%5D/g, ']')
@@ -32,10 +33,10 @@ export function buildURL(url: string, params?: any): string {
     values.forEach(v1 => {
       if (isDate(v1)) {
         v1 = v1.toISOString()
-      } else if (isObject(v1)) {
+      } else if (isPlainObject(v1)) {
         v1 = JSON.stringify(v1)
       }
-      parts.push(`${encode(key)}=${encode(val)}`)
+      parts.push(`${encode(key)}=${encode(v1)}`)
     })
   })
 
@@ -46,7 +47,7 @@ export function buildURL(url: string, params?: any): string {
     if (markIndex !== -1) {
       url = url.slice(0, markIndex)
     }
-    url += (url.indexOf('?') !== -1 ? '?' : '&') + serializedParams
+    url += (url.indexOf('?') !== -1 ? '&' : '?') + serializedParams
   }
   return url
 }
