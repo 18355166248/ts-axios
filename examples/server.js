@@ -35,7 +35,7 @@ router.get('/base/get', function(req, res) {
 })
 
 router.post('/base/post', function(req, res) {
-  res.json(req.query)
+  res.json(req.body)
 })
 
 router.post('/base/buffer', function(req, res) {
