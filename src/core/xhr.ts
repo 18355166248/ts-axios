@@ -1,5 +1,5 @@
-import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from './types'
-import { createError } from './helpers/error'
+import { AxiosRequestConfig, AxiosPromise, AxiosResponse } from '../types'
+import { createError } from '../helpers/error'
 
 function xhr(config: AxiosRequestConfig): AxiosPromise {
   return new Promise((resolve, reject) => {
@@ -16,7 +16,7 @@ function xhr(config: AxiosRequestConfig): AxiosPromise {
       Xml.timeout = timeout
     }
 
-    Xml.open(method.toUpperCase(), url, true)
+    Xml.open(method.toUpperCase(), url!, true)
 
     Xml.onreadystatechange = function handleLoad() {
       if (Xml.readyState !== 4 || Xml.status === 0) return

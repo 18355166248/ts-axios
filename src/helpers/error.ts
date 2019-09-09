@@ -1,5 +1,4 @@
 import { AxiosRequestConfig, AxiosResponse } from '../types'
-import { SrvRecord } from 'dns';
 
 export class AxiosError extends Error {
   isAxiosError: boolean
@@ -25,4 +24,15 @@ export class AxiosError extends Error {
 
     Object.setPrototypeOf(this, AxiosError.prototype)
   }
+}
+
+export function createError(
+  message: string,
+  config: AxiosRequestConfig,
+  code?: string | null,
+  request?: any,
+  response?: AxiosResponse
+) {
+  const error = new AxiosError(message, config, code, request, response)
+  return error
 }
